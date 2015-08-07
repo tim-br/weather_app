@@ -3,6 +3,8 @@ result = 0;
 $(document).ready(function() {
     // Add card to the bottom
 
+    console.log("hello");
+
     var citycountry = $(".city-country");
 
 
@@ -40,14 +42,20 @@ $(document).ready(function() {
         });
 
         var test = function(data){
+          console.log(data);
           var foo = data;
-          var weatherDesc = foo.current_observation.weather;
-          var currentTemp = foo.current_observation.temp_c;
-          var relativeHumidity = foo.current_observation.relative_humidity;
-          //debugger;
-          city_div.after("<br><div class='yolo'> The current temperature is " + currentTemp
-                         + " degress celcius. " + "It is " + weatherDesc + ". The relative humidity is "
-                         + relativeHumidity + ".</div>");
+          if(!foo.current_observation){
+            alert("data not available");
+          } else {
+            var weatherDesc = foo.current_observation.weather;
+            var currentTemp = foo.current_observation.temp_c;
+            var relativeHumidity = foo.current_observation.relative_humidity;
+            //debugger;
+            city_div.after("<br><div class='yolo'> The current temperature is " + currentTemp
+                           + " degress celcius. " + "It is " + weatherDesc + ". The relative humidity is "
+                           + relativeHumidity + ".</div>");
+          }
+
           // city_div.append("<br><div class='yolo'> The current temperature is " + currentTemp
           //             + " degress celcius. " + "It is " + weatherDesc + ". The relative humidity is "
           //             + relativeHumidity + ".</div>");
@@ -95,6 +103,7 @@ $(document).ready(function() {
 
 
   var myFunction = function(parsed_json){
+
     var location = parsed_json['location']['city'];
     var temp_f = parsed_json['current_observation']['temp_f'];
     alert("Current temperature in " + location + " is: " + temp_f);
